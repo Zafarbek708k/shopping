@@ -1,14 +1,13 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService{
   static final _auth =FirebaseAuth.instance;
 
   /// Register
-
     static Future<User?> registerUser(BuildContext context, {required String fullName, required String email, required String password, required String phoneNumber})async{
 
       UserCredential userCredential =await _auth.createUserWithEmailAndPassword(email: email, password: password);
@@ -31,7 +30,6 @@ class AuthService{
       }
 
     }
-
 
       /// Login
           static  Future<User?> loginUser(BuildContext context, {required String email, required String password})async{
@@ -58,7 +56,6 @@ class AuthService{
           }
         }
 
-
       /// Delete Account
       static Future<void> deleteAccount(BuildContext context) async {
         try {
@@ -74,7 +71,21 @@ class AuthService{
       }
 
       /// login with google
-      static Future<User?> loginWithGoogle(BuildContext context)async{
+      static Future<User?> signInWithGoogle()async{
+          GoogleSignInAccount? googleSignInAccount = await GoogleSignIn().signIn();
+          if(googleSignInAccount != null){
+            GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
+            OAuthCredential oAuthCredential = GoogleAuthProvider.credential(
+              accessToken: googleSignInAuthentication.accessToken,
+              idToken: googleSignInAuthentication.idToken
+            );
+
+            UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(oAuthCredential);
+            return userCredential.user;
+          }else{
+            return null;
+          }
+
 
       }
 

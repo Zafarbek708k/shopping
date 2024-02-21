@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shopping/services/auth_service.dart'; // Import flutter_svg
@@ -162,8 +163,18 @@ class _SignInState extends State<SignIn> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   MaterialButton(
-                    onPressed: () {
+                    onPressed: () async{
                       /// Login with Google
+                     User? user =  await AuthService.signInWithGoogle();
+                     if( user != null){
+                       Navigator.pushReplacementNamed(context, "/first_page");
+                     }else{
+                       ScaffoldMessenger.of(context).showSnackBar(
+                         const SnackBar(
+                           content: Text('Google bilan kirishda xatolik yuz berdi. Iltimos, qayta urinib ko\'ring.'),
+                         ),
+                       );
+                     }
                     },
                     color: Colors.white,
                     padding: const EdgeInsets.all(10.0),

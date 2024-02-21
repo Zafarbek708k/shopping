@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shopping/data/local_data/enEn.dart';
 import 'package:shopping/services/extension_service.dart';
 
 class ThirdInitialPage extends StatefulWidget {
