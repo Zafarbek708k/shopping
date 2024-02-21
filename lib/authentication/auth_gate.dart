@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shopping/all_pages/first_menu.dart';
-import 'package:shopping/authentication/sign_in.dart';
+import '../all_pages/initial_page.dart';
 
 class AuthGate extends StatelessWidget {
   const AuthGate({super.key});
@@ -14,7 +14,7 @@ class AuthGate extends StatelessWidget {
           if(snapshot.hasData){
             return const FirstMenu();
           }else{
-            return const SignIn();
+            return const InitialPage();
           }
         },
     );
