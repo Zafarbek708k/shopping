@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 
 class NetworkService{
   static const String _baseUrl = "dummyjson.com";
-  static const String _baseApi = "/products";
+  static const String baseApi = "/products";
 
   static Future<String> getAllData(String api)async{
     Uri url =  Uri.https(_baseUrl, api);

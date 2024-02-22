@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'all_function.dart';
+
 class AdminAuth extends StatefulWidget {
   const AdminAuth({super.key});
    static const String id  = "/admin_panel";
@@ -10,8 +12,8 @@ class AdminAuth extends StatefulWidget {
 }
 
 class _AdminAuthState extends State<AdminAuth> {
-  static const String _email = "mrkarimov708k@gmail.com";
-  static const String _password = "Z7z2pjEB";
+  static const String _email = "karimov@gmail.com";
+  static const String _password = "123456789";
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   bool passwordIsVisible = false;
@@ -30,9 +32,9 @@ class _AdminAuthState extends State<AdminAuth> {
             children: [
               const SizedBox(height: 100),
               SvgPicture.asset(
-                "assets/svg_files/login_svg_bcg.svg",
+                "assets/svg_files/Security_admin.svg",
                 fit: BoxFit.cover,
-                width: 200,
+                width: 250,
                 height: 200,
               ),
 
@@ -51,7 +53,6 @@ class _AdminAuthState extends State<AdminAuth> {
                   },
                   decoration: InputDecoration(
                     labelText: 'email',
-                    hintText: 'e.g., example@gmail.com',
                     prefixIcon: const Icon(Icons.email_outlined),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
@@ -78,10 +79,9 @@ class _AdminAuthState extends State<AdminAuth> {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    hintText: 'e.g., Z7z2pjEX',
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
-                      icon: passwordIsVisible ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off),
+                      icon: passwordIsVisible ? const Icon(Icons.visibility, color: Colors.black,) : const Icon(Icons.visibility_off, color: Colors.black,),
                       onPressed: () {
                         setState(() {
                           passwordIsVisible = !passwordIsVisible;
@@ -125,7 +125,8 @@ class _AdminAuthState extends State<AdminAuth> {
     // Check if email and password match the predefined values
     if (emailController.text == _email && passwordController.text == _password) {
       // Navigate to the next page
-      Navigator.pushReplacementNamed(context, "/next_page");
+      Navigator.pushReplacement(context, MaterialPageRoute(
+          builder: (context) => const AllFunction(),));
     } else {
       // Show error message and highlight text fields
       showDialog(

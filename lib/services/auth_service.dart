@@ -90,7 +90,46 @@ class AuthService{
       }
 
 
+  static Future<User?> updateProfileUser(BuildContext context, {String? fullName, String? email, String? password, String? phoneNumber}) async {
+    try {
+      User? user = _auth.currentUser;
 
-      /// and another function
+      if (user != null) {
+        // Re-authenticate user if password is provided
+        if (password != null) {
+          await _auth.currentUser!.reauthenticateWithCredential(
+            EmailAuthProvider.credential(email: user.email!, password: password),
+          );
+        }
+
+        // Update profile fields
+        if (fullName != null) {
+          await user.updateDisplayName(fullName);
+        }
+        if (email != null) {
+          await user.updateEmail(email);
+        }
+        if (phoneNumber != null) {
+
+        }
+
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Ma'lumotlar muvaffaqiyatli yangilandi")));
+        return user;
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Foydalanuvchi ma'lumotlarini yangilashda xatolik yuz berdi. Iltimos, qayta urinib ko'ring.")));
+        return null;
+      }
+    } catch (e) {
+      log(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Xatolik yuz berdi")));
+      return null;
+    }
+  }
+
+
+
+
 
 }
+
+

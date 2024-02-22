@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/services/extension_service.dart';
+import 'package:shopping/widgets/first_initial_page.dart';
 
+import '../widgets/second_initial_page.dart';
 import '../widgets/third_initial_page.dart';
 
 class InitialPage extends StatefulWidget {
@@ -41,47 +43,12 @@ class _InitialPageState extends State<InitialPage> {
         children: [
           PageView(
             controller: _controller,
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 40, 162, 155),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/Online ads.png"),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 75.0, horizontal: 16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+            children: const [
+              FirstInitialPage(),
 
-                      Text("discount".tr, style: const TextStyle(color: Colors.white, fontSize: 25),)
-                    ],
-                  ),
-                ),
-              ),
+              SecondInitialPage(),
 
-              Container(
-                decoration: const BoxDecoration(
-                  color: Color.fromARGB(255, 40, 162, 155),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/oilaviy_photo_for_intro.png"),
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-                child:  Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 75.0, horizontal: 16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text("costs".tr, style: const TextStyle(color: Colors.white, fontSize: 25),)
-                    ],
-                  ),
-                ),
-              ),
-
-              const ThirdInitialPage(),
+              ThirdInitialPage(),
 
 
             ],

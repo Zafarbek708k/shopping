@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AllFunction extends StatefulWidget {
-  const AllFunction({super.key});
+  const AllFunction({Key? key}) : super(key: key);
 
   @override
   State<AllFunction> createState() => _AllFunctionState();
@@ -10,16 +10,70 @@ class AllFunction extends StatefulWidget {
 class _AllFunctionState extends State<AllFunction> {
   @override
   Widget build(BuildContext context) {
-    return  const Scaffold(
-      backgroundColor: Color.fromARGB(255, 40, 162, 155),
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 40, 162, 155),
+      appBar: AppBar(
+        title: const Text("Admin panel"),
+      ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            ///  Button Navigator.push list of Users
-            ///  Button Navigator.push list of Products
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.push to list of Users page
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.black),
+                ),
+              ),
+              child: const Text(
+                'List of Users',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.push to list of Product page
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.black),
+                ),
+              ),
+              child: const Text(
+                'List of Products',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navigator.push to Statistic page
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.black,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                  side: const BorderSide(color: Colors.black),
+                ),
+              ),
+              child: const Text(
+                'Statistic',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
           ],
         ),
       ),
