@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping/all_pages/new_test.dart';
 import '../widgets/custom_driwer.dart';
 
 class MyAccauntSetting extends StatefulWidget {
@@ -180,6 +181,13 @@ class _MyAccauntSettingState extends State<MyAccauntSetting> {
                   ],
                 ),
               ),
+
+              MaterialButton(
+                  onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Nimadur()));
+              },
+                child: const Text("test"),
+              )
 
 
             ],
