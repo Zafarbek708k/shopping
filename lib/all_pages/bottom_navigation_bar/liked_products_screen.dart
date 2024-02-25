@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:shopping/services/real_time_database_service.dart';
 
-import '../models/post_model.dart';
-import '../widgets/custom_driwer.dart';
+import '../../models/post_model.dart';
+import '../../widgets/custom_driwer.dart';
 
 class LikedProducts extends StatefulWidget {
   const LikedProducts({Key? key}) : super(key: key);
@@ -16,8 +16,7 @@ class LikedProducts extends StatefulWidget {
 }
 
 class _LikedProductsState extends State<LikedProducts> {
-  bool _isSearchVisible = false;
-  final TextEditingController _searchController = TextEditingController();
+
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
 
@@ -34,54 +33,7 @@ class _LikedProductsState extends State<LikedProducts> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 40, 162, 155),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 70, 162, 155),
-        title: _isSearchVisible
-            ? TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search...',
-            hintStyle: TextStyle(color: Colors.black, fontSize: 20),
-            border: InputBorder.none,
-          ),
-        )
-            : const Text(
-          "Like",
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 25,
-              fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _isSearchVisible = !_isSearchVisible;
-              });
-            },
-            icon: _isSearchVisible
-                ? const Icon(Icons.close, color: Colors.black,)
-                : const Icon(Icons.search, color: Colors.black,),
-          ),
-          const SizedBox(width: 10),
-        ],
-        elevation: 0, // Remove the default shadow
-        // Wrap AppBar with Container to add border
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.black, width: 2.0),
-              ),
-            ),
-          ),
-        ),
-      ),
-      drawer: const CustomDrawer(),
-      body: SafeArea(
+    return  SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Column(
@@ -184,7 +136,7 @@ class _LikedProductsState extends State<LikedProducts> {
             ],
           ),
         ),
-      ),
-    );
+      );
+
   }
 }

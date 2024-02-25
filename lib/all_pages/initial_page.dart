@@ -44,12 +44,12 @@ class _InitialPageState extends State<InitialPage> {
           PageView(
             controller: _controller,
             children: const [
+
               FirstInitialPage(),
 
               SecondInitialPage(),
 
               ThirdInitialPage(),
-
 
             ],
           ),

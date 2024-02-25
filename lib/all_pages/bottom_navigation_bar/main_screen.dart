@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shopping/services/network_service.dart';
-
-import '../models/product_model.dart';
-import '../widgets/custom_driwer.dart';
+import '../../models/product_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
@@ -12,8 +10,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  bool _isSearchVisible = false;
-  final TextEditingController _searchController = TextEditingController();
   late Future<Products> _productsFuture;
 
   @override
@@ -30,47 +26,7 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 40, 162, 155),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 70, 162, 155),
-        title: _isSearchVisible
-            ? TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search...',
-            hintStyle: TextStyle(color: Colors.black, fontSize: 20),
-            border: InputBorder.none,
-          ),
-        )
-            : const Text("Home", style:  TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _isSearchVisible = !_isSearchVisible;
-              });
-            },
-            icon: _isSearchVisible
-                ? const Icon(Icons.close, color: Colors.black,)
-                : const Icon(Icons.search, color: Colors.black,),
-          ),
-          const SizedBox(width: 10),
-        ],
-        elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.black, width: 2.0),
-              ),
-            ),
-          ),
-        ),
-      ),
-      drawer: CustomDrawer(),
-      body: FutureBuilder<Products>(
+    return  FutureBuilder<Products>(
         future: _productsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -168,7 +124,6 @@ class _MainScreenState extends State<MainScreen> {
             );
           }
         },
-      ),
-    );
+      );
   }
 }

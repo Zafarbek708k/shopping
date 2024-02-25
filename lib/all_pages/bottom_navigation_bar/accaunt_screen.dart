@@ -1,71 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shopping/all_pages/new_test.dart';
-import '../widgets/custom_driwer.dart';
 
-class MyAccauntSetting extends StatefulWidget {
-  const MyAccauntSetting({Key? key}) : super(key: key);
+class MyAccountSetting extends StatefulWidget {
+  const MyAccountSetting({Key? key}) : super(key: key);
 
   @override
-  State<MyAccauntSetting> createState() => _MyAccauntSettingState();
+  State<MyAccountSetting> createState() => _MyAccauntSettingState();
 }
 
-class _MyAccauntSettingState extends State<MyAccauntSetting> {
-  bool _isSearchVisible = false;
-  final TextEditingController _searchController = TextEditingController();
+class _MyAccauntSettingState extends State<MyAccountSetting> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 40, 162, 155),
-      appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 70, 162, 155),
-        title: _isSearchVisible
-            ? TextField(
-          controller: _searchController,
-          decoration: const InputDecoration(
-            hintText: 'Search...',
-            hintStyle: TextStyle(color: Colors.black, fontSize: 20),
-            border: InputBorder.none,
-          ),
-        )
-            : const Text(
-          "Account",
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 25,
-              fontWeight: FontWeight.bold),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                _isSearchVisible = !_isSearchVisible;
-              });
-            },
-            icon: _isSearchVisible
-                ? const Icon(Icons.close, color: Colors.black,)
-                : const Icon(Icons.search, color: Colors.black,),
-          ),
-          const SizedBox(width: 10),
-        ],
-        elevation: 0, // Remove the default shadow
-        // Wrap AppBar with Container to add border
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4.0),
-          child: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.black, width: 2.0),
-              ),
-            ),
-          ),
-        ),
-      ),
-
-      drawer: const CustomDrawer(),
-
-      body:  SafeArea(
+    return  SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           child: Column(
@@ -182,18 +129,10 @@ class _MyAccauntSettingState extends State<MyAccauntSetting> {
                 ),
               ),
 
-              MaterialButton(
-                  onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Nimadur()));
-              },
-                child: const Text("test"),
-              )
-
-
             ],
           ),
         ),
-      ),
-    );
+      );
+
   }
 }

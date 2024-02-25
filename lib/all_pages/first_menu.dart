@@ -1,98 +1,116 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:shopping/all_pages/accaunt_screen.dart';
-import 'package:shopping/all_pages/basket_screen.dart';
-import 'package:shopping/all_pages/liked_products_screen.dart';
-import 'main_screen.dart';
-
+import 'package:shopping/all_pages/bottom_navigation_bar/accaunt_screen.dart';
+import 'package:shopping/all_pages/bottom_navigation_bar/basket_screen.dart';
+import 'package:shopping/all_pages/bottom_navigation_bar/liked_products_screen.dart';
+import 'package:shopping/widgets/custom_driwer.dart';
+import 'bottom_navigation_bar/main_screen.dart';
 
 class FirstMenu extends StatefulWidget {
-  const FirstMenu({super.key});
-  static const String id = "/first_page";
+  const FirstMenu({Key? key}) : super(key: key);
 
   @override
   State<FirstMenu> createState() => _FirstMenuState();
 }
 
 class _FirstMenuState extends State<FirstMenu> {
+  int _selectedIndex = 0;
+  bool _isSearchVisible = false;
+  final TextEditingController _searchController = TextEditingController();
 
- final PersistentTabController _controller = PersistentTabController(initialIndex: 0);
- List<Widget> _buildScreens() {
-   return [
-      MainScreen(),
-      LikedProducts(),
-      BasketScreen(),
-      MyAccauntSetting(),
-   ];
- }
+  final List<Widget> _screens = [
+    const MainScreen(),
+    const LikedProducts(),
+    const BasketScreen(),
+    const MyAccountSetting(),
+  ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
- List<PersistentBottomNavBarItem> _navBarsItems() {
-   return [
-     PersistentBottomNavBarItem(
-       icon: const Icon(CupertinoIcons.home, color: Colors.black,),
-       title: ("Home"),
-       textStyle: const TextStyle(color: Colors.black),
-       activeColorPrimary: CupertinoColors.white,
-       inactiveColorPrimary: CupertinoColors.systemGrey,
-     ),
-     PersistentBottomNavBarItem(
-       icon: const Icon(CupertinoIcons.heart, color: Colors.black,),
-       title: ("Liked"),
-       textStyle: const TextStyle(color: Colors.black),
-       activeColorPrimary: CupertinoColors.white,
-       inactiveColorPrimary: CupertinoColors.systemGrey,
-     ),
-     PersistentBottomNavBarItem(
-       icon: const Icon(CupertinoIcons.cart_badge_plus, color: Colors.black,),
-       title: ("Basket"),
-       textStyle: const TextStyle(color: Colors.black),
-       activeColorPrimary: CupertinoColors.white,
-       inactiveColorPrimary: CupertinoColors.systemGrey,
-     ),
-     PersistentBottomNavBarItem(
-       icon: const Icon(CupertinoIcons.person, color:  Colors.black,),
-       title: ("Account"),
-       textStyle: const TextStyle(color: Colors.black),
-       activeColorPrimary: CupertinoColors.white,
-       inactiveColorPrimary: CupertinoColors.systemGrey,
-     ),
-   ];
- }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 70, 162, 155),
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 70, 162, 155),
+        title: _isSearchVisible
+            ? TextField(
+          controller: _searchController,
+          decoration: const InputDecoration(
+            hintText: 'Search...',
+            hintStyle: TextStyle(color: Colors.black, fontSize: 20),
+            border: InputBorder.none,
+          ),
+        )
+            : const Text("Ecommerce", style:  TextStyle(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                _isSearchVisible = !_isSearchVisible;
+              });
+            },
+            icon: _isSearchVisible
+                ? const Icon(Icons.close, color: Colors.black,)
+                : const Icon(Icons.search, color: Colors.black,),
+          ),
+          const SizedBox(width: 10),
+        ],
+        elevation: 0,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4.0),
+          child: Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                bottom: BorderSide(color: Colors.black, width: 2.0),
+              ),
+            ),
+          ),
+        ),
+      ),
 
- @override
- Widget build(BuildContext context) {
-   return PersistentTabView(
-     context,
-     controller: _controller,
-     screens: _buildScreens(),
-     items: _navBarsItems(),
-     confineInSafeArea: true,
-     backgroundColor: const Color.fromARGB(255, 70, 162, 155),
-     handleAndroidBackButtonPress: true,
-     resizeToAvoidBottomInset: true,
-     stateManagement: true,
-     hideNavigationBarWhenKeyboardShows: true,
-     decoration: NavBarDecoration(
-       border: Border.all(color: Colors.black), // Add black border
-       adjustScreenBottomPaddingOnCurve: true,
-       borderRadius: BorderRadius.circular(25.0),
-       colorBehindNavBar: Colors.black,
-     ),
-     popAllScreensOnTapOfSelectedTab: true,
-     popActionScreens: PopActionScreensType.all,
-     itemAnimationProperties: const ItemAnimationProperties(
-       duration: Duration(milliseconds: 200),
-       curve: Curves.ease,
-     ),
-     screenTransitionAnimation: const ScreenTransitionAnimation(
-       animateTabTransition: true,
-       curve: Curves.ease,
-       duration: Duration(milliseconds: 200),
-     ),
-     navBarStyle: NavBarStyle.style1,
-   );
- }
+      drawer: const CustomDrawer(),
 
+      body: _screens[_selectedIndex],
+
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+          border: Border.all(color: Colors.black),
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.transparent, // Set background color here
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.black87,
+          unselectedItemColor: Colors.white70,
+          onTap: _onItemTapped,
+          items:  const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.favorite),
+              label: 'Liked',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart),
+              label: 'Basket',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Account',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
